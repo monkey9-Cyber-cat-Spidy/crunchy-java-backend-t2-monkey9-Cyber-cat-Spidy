@@ -1,0 +1,327 @@
+{
+  "info": {
+    "_postman_id": "crunchy-backend-t2-collection-id",
+    "name": "Crunchy Code - Task 2 Bookstore API (Full Spec)",
+    "description": "Comprehensive Postman collection testing all CRUD operations across Authors & Books, including success, validation, referential integrity, and error failure cases.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authors",
+      "item": [
+        {
+          "name": "1. Create Author (201 Created)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"George R.R. Martin\",\n  \"email\": \"grrm@example.com\",\n  \"bio\": \"American novelist and short story writer.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors"]
+            }
+          }
+        },
+        {
+          "name": "2. Get All Authors (200 OK)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors"]
+            }
+          }
+        },
+        {
+          "name": "3. Get Author by ID (200 OK)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors", "1"]
+            }
+          }
+        },
+        {
+          "name": "4. Update Author (200 OK)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"George R.R. Martin (Updated)\",\n  \"email\": \"grrm.official@example.com\",\n  \"bio\": \"Epic fantasy author of A Song of Ice and Fire.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors", "1"]
+            }
+          }
+        },
+        {
+          "name": "5. Delete Author (204 No Content)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors", "1"]
+            }
+          }
+        },
+        {
+          "name": "6. [Failure] Create Author - Validation Failure (400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"email\": \"not-a-valid-email\",\n  \"bio\": \"Missing required fields\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors"]
+            }
+          }
+        },
+        {
+          "name": "7. [Failure] Get Nonexistent Author (404 Not Found)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors/99999",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors", "99999"]
+            }
+          }
+        },
+        {
+          "name": "8. [Failure] Create Duplicate Author Email (409 Conflict)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Duplicate Person\",\n  \"email\": \"grrm.official@example.com\",\n  \"bio\": \"Trying to reuse existing email\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "1. Create Book (201 Created)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"A Game of Thrones\",\n  \"isbn\": \"9780553103540\",\n  \"price\": 29.99,\n  \"publicationYear\": 1996,\n  \"authorId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/books",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "books"]
+            }
+          }
+        },
+        {
+          "name": "2. Get All Books (200 OK)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/books",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "books"]
+            }
+          }
+        },
+        {
+          "name": "3. Filter Books by Author ID (200 OK)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/books?authorId=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "books"],
+              "query": [
+                {
+                  "key": "authorId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "4. Get Book by ID (200 OK)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/books/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "books", "1"]
+            }
+          }
+        },
+        {
+          "name": "5. Update Book (200 OK)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"A Game of Thrones (Illustrated Edition)\",\n  \"isbn\": \"9780553103540\",\n  \"price\": 34.99,\n  \"publicationYear\": 1996,\n  \"authorId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/books/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "books", "1"]
+            }
+          }
+        },
+        {
+          "name": "6. Delete Book (204 No Content)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/books/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "books", "1"]
+            }
+          }
+        },
+        {
+          "name": "7. [Failure] Create Book - Validation Failure (400 Bad Request)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"\",\n  \"isbn\": \"invalid-isbn\",\n  \"price\": -10.00,\n  \"publicationYear\": 1200,\n  \"authorId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/books",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "books"]
+            }
+          }
+        },
+        {
+          "name": "8. [Failure] Create Book with Missing Author (404 Not Found)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Orphan Book\",\n  \"isbn\": \"9781400079988\",\n  \"price\": 19.99,\n  \"publicationYear\": 2010,\n  \"authorId\": 9999\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/books",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "books"]
+            }
+          }
+        },
+        {
+          "name": "9. [Failure] Delete Author with Active Books (400 Bad Request)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/api/v1/authors/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "v1", "authors", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
